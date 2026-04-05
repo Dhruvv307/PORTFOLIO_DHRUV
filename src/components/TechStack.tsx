@@ -21,6 +21,7 @@ const imageUrls = [
   "/images/mysql.webp",
   "/images/typescript.webp",
   "/images/javascript.webp",
+
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
@@ -128,27 +129,41 @@ const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
-      setIsActive(scrollY > threshold);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const workEl = document.getElementById("work");
+          if (workEl) {
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
+            const threshold = workEl.getBoundingClientRect().top;
+            setIsActive(scrollY > threshold);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
+
+    // Use passive listener for better scroll performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Cleanly handle header link clicks without the 10ms aggressive setInterval thrashing
+    const clickLinks = document.querySelectorAll(".header a");
+    const handleClick = () => {
+      setTimeout(handleScroll, 500); // Check once after smooth scroll is likely done
+    };
+
+    clickLinks.forEach((elem) => {
+      elem.addEventListener("click", handleClick);
     });
-    window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      clickLinks.forEach((elem) => {
+        elem.removeEventListener("click", handleClick);
+      });
     };
   }, []);
   const materials = useMemo(() => {

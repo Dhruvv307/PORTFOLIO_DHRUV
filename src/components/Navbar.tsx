@@ -13,9 +13,10 @@ const Navbar = () => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 1.7,
-      speed: 1.7,
+      smooth: 2,
+      speed: 1.3,
       effects: true,
+      smoothTouch: 0.1,
       autoResize: true,
       ignoreMobileResize: true,
     });
@@ -35,22 +36,28 @@ const Navbar = () => {
         }
       });
     });
-    window.addEventListener("resize", () => {
+    const handleResize = () => {
       ScrollSmoother.refresh(true);
-    });
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
   return (
     <>
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          Logo
+          Dhruv
         </a>
         <a
-          href="mailto:example@mail.com"
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=dhruvsaliann@gmail.com"
+          target="_blank"
           className="navbar-connect"
           data-cursor="disable"
         >
-          example@mail.com
+          dhruvsaliann@gmail.com
         </a>
         <ul>
           <li>

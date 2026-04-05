@@ -9,20 +9,31 @@ const Cursor = () => {
     const cursor = cursorRef.current!;
     const mousePos = { x: 0, y: 0 };
     const cursorPos = { x: 0, y: 0 };
+    let rafId: number;
+
     document.addEventListener("mousemove", (e) => {
       mousePos.x = e.clientX;
       mousePos.y = e.clientY;
     });
-    requestAnimationFrame(function loop() {
+
+    function loop() {
       if (!hover) {
         const delay = 6;
-        cursorPos.x += (mousePos.x - cursorPos.x) / delay;
-        cursorPos.y += (mousePos.y - cursorPos.y) / delay;
-        gsap.to(cursor, { x: cursorPos.x, y: cursorPos.y, duration: 0.1 });
-        // cursor.style.transform = `translate(${cursorPos.x}px, ${cursorPos.y}px)`;
+        const newX = cursorPos.x + (mousePos.x - cursorPos.x) / delay;
+        const newY = cursorPos.y + (mousePos.y - cursorPos.y) / delay;
+
+        // Only update if moved more than 0.1px — avoids unnecessary GSAP calls
+        if (Math.abs(newX - cursorPos.x) > 0.1 || Math.abs(newY - cursorPos.y) > 0.1) {
+          cursorPos.x = newX;
+          cursorPos.y = newY;
+          gsap.set(cursor, { x: cursorPos.x, y: cursorPos.y });
+        }
       }
-      requestAnimationFrame(loop);
-    });
+      rafId = requestAnimationFrame(loop);
+    }
+
+    rafId = requestAnimationFrame(loop);
+
     document.querySelectorAll("[data-cursor]").forEach((item) => {
       const element = item as HTMLElement;
       element.addEventListener("mouseover", (e: MouseEvent) => {
@@ -31,9 +42,7 @@ const Cursor = () => {
 
         if (element.dataset.cursor === "icons") {
           cursor.classList.add("cursor-icons");
-
-          gsap.to(cursor, { x: rect.left, y: rect.top, duration: 0.1 });
-          //   cursor.style.transform = `translate(${rect.left}px,${rect.top}px)`;
+          gsap.set(cursor, { x: rect.left, y: rect.top });
           cursor.style.setProperty("--cursorH", `${rect.height}px`);
           hover = true;
         }
@@ -46,6 +55,10 @@ const Cursor = () => {
         hover = false;
       });
     });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return <div className="cursor-main" ref={cursorRef}></div>;
