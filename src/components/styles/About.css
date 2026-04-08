@@ -30,6 +30,19 @@
   letter-spacing: 0.8px;
 }
 
+@media only screen and (max-width: 599px) {
+  .about-me {
+    padding: 30px 0 20px;
+  }
+  .about-me h3 {
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+  .about-me p {
+    font-size: 17px;
+    line-height: 26px;
+  }
+}
 @media only screen and (min-width: 600px) {
   .about-section {
     justify-content: center;

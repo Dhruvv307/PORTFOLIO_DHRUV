@@ -229,6 +229,18 @@
   resize: none;
 }
 
+/* Fix browser autofill white background */
+.contact-form input:-webkit-autofill,
+.contact-form input:-webkit-autofill:hover,
+.contact-form input:-webkit-autofill:focus,
+.contact-form textarea:-webkit-autofill,
+.contact-form textarea:-webkit-autofill:hover,
+.contact-form textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f2e9ff;
+  -webkit-box-shadow: 0 0 0px 1000px #210a45 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: rgba(223, 167, 255, 0.82);
@@ -281,11 +293,11 @@
   }
 
   .contact-left {
-    padding: 56px 34px 18px;
+    padding: 92px 56px 40px; /* Restored closer to original desktop dimensions */
   }
 
   .contact-right {
-    padding: 0 34px 34px;
+    padding: 0 56px 56px;
   }
 }
 
@@ -301,15 +313,17 @@
   }
 
   .contact-left {
-    padding: 36px 22px 18px;
+    padding: 40px 22px 10px; /* Reduced padding for mobile */
   }
 
   .contact-right {
-    padding: 0 22px 22px;
+    padding: 0 22px 60px; /* Added padding to clear the higher Resume button */
   }
 
   .contact-section h3 {
-    font-size: 2.7rem;
+    font-size: 2.2rem; /* Reduced size to prevent clipping */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .contact-info-item a,
@@ -324,5 +338,6 @@
 
   .contact-form textarea {
     padding: 18px;
+    min-height: 120px;
   }
 }

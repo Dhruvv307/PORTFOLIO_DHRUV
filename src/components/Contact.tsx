@@ -45,7 +45,7 @@ const Contact = () => {
         <div className="contact-divider" />
 
         <div className="contact-left">
-          <h3>Contact Me</h3>
+          <h3>Let's Connect</h3>
 
           <div className="contact-info-list">
             <div className="contact-info-item">

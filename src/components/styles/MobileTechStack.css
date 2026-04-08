@@ -1,0 +1,123 @@
+.mobile-tech-section {
+  width: var(--cWidth);
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.mobile-tech-section h2 {
+  font-size: 38px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0 0 30px;
+  letter-spacing: 1px;
+}
+
+.mobile-tech-section h2 span {
+  color: var(--accentColor);
+}
+
+.skill-groups-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skill-group-card {
+  background: rgba(18, 12, 35, 0.45);
+  border: 1px solid rgba(194, 164, 255, 0.15);
+  border-radius: 20px;
+  padding: 24px 20px;
+  text-align: left;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.skill-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.skill-group-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(194, 164, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c2a4ff;
+  font-size: 18px;
+  border: 1px solid rgba(194, 164, 255, 0.2);
+}
+
+.skill-group-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.skill-item {
+  width: 100%;
+}
+
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.skill-name {
+  color: #e0d5ff;
+  font-weight: 400;
+}
+
+.skill-percent {
+  color: #c2a4ff;
+  font-weight: 500;
+}
+
+.skill-progress-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.skill-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #c2a4ff 0%, #ff80df 100%);
+  box-shadow: 0 0 10px rgba(194, 164, 255, 0.3);
+}
+
+@media only screen and (max-width: 480px) {
+  .mobile-tech-section h2 {
+    font-size: 32px;
+  }
+  
+  .skill-group-card {
+    padding: 20px 16px;
+  }
+}
+
+/* For slightly larger mobile screens */
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+  .skill-groups-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}

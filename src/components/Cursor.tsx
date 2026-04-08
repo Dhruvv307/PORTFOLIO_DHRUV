@@ -2,7 +2,11 @@ import { useEffect, useRef } from "react";
 import "./styles/Cursor.css";
 import gsap from "gsap";
 
+const isTouchDevice = () =>
+  window.matchMedia("(pointer: coarse)").matches;
+
 const Cursor = () => {
+  if (isTouchDevice()) return null;
   const cursorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let hover = false;
